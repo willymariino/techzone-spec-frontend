@@ -5,19 +5,29 @@ function useStorage(itemKey, initialValue) {
     const [state, setState] = useState(() => {
 
         const prevState = localStorage.getItem(itemKey)
-        if (prevState) {
-            return prevState
+        if (prevState !== null) {
+            try {
+                return JSON.parse(prevState)
+            }
+            catch (error) {
+                console.error("errore nel parsing da localStorage", error)
+                localStorage.setItem(itemKey, JSON.stringify(initialValue));
+                return initialValue;
+            }
         }
         else {
-            localStorage.setItem(itemKey, initialValue)
+            localStorage.setItem(itemKey, JSON.stringify(initialValue))
             return initialValue
         }
+
 
     })
 
     const changeState = newState => {
-        setState(newState)
-        localStorage.setItem(itemKey, newState)
+        const valueTostore = typeof newState === "function" ? newState(state) : newState
+
+        setState(valueTostore)
+        localStorage.setItem(itemKey, JSON.stringify(newState))
     }
 
     return [state, changeState]
