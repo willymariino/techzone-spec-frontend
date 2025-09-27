@@ -7,7 +7,9 @@ import useStorage from "../hooks/useStorage";
 
 function ProductCard({ product }) {
 
-    const [isBookMarked, setIsBookMarked] = useStorage("inputValue", false)
+    const storageKey = `bookmark-${product.id}`
+
+    const [isBookMarked, setIsBookMarked] = useStorage(storageKey, false)
     const { toggleFavorite } = useContext(GlobalContext)
 
     const handleBookmark = (e) => {
