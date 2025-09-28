@@ -2,6 +2,7 @@ import { useContext, useEffect } from "react"
 import GlobalContext from "../context/GlobalContext"
 import ProductCard from "../components/ProductCard"
 import useStorage from "../hooks/useStorage"
+import { Link } from "react-router-dom"
 
 function WishList() {
 
@@ -19,7 +20,9 @@ function WishList() {
             <ul className="product-list">
                 {storedFavorites.map(favorite =>
                     <li key={favorite.id} className="product-card">
-                        <ProductCard product={favorite} />
+                        <Link to={`/product-detail/slug/${favorite.slug}`}>
+                            <ProductCard product={favorite} />
+                        </Link>
                     </li>
 
                 )}
