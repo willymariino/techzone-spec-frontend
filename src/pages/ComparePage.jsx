@@ -1,5 +1,6 @@
 import { useContext } from "react"
 import GlobalContext from "../context/GlobalContext"
+import ComparerCard from "../components/ComparerCard"
 
 function ComparePage() {
 
@@ -10,9 +11,22 @@ function ComparePage() {
     }
 
     return (
-        <>
 
-        </>
+
+        <div className="comparePage-columns-container">
+
+            {/*prima colonna */}
+            <div>
+                <ComparerCard />
+            </div>
+
+
+
+
+
+        </div>
+
+
     )
 }
 
