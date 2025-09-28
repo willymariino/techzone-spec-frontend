@@ -1,8 +1,11 @@
+import { useState } from "react";
 import GlobalContext from "../context/GlobalContext";
 import useStorage from "../hooks/useStorage";
 
+
 function GlobalContextProvider({ children }) {
     const [favorites, setFavorites] = useStorage("favorites", [])
+    const [compareList, setCompareList] = useState([])
 
     function toggleFavorite(product) {
 
@@ -20,8 +23,24 @@ function GlobalContextProvider({ children }) {
         })
     }
 
+    function toggleCompare(product) {
+
+        setCompareList(prev => {
+
+            // se il prodotto è già stato selezionato, e viene cliccato di nuovo, rimuovilo
+            if (prev.find(p => p.id === product.id)) {
+                return prev.filter(p => p.id !== product.id)
+            }
+
+            // se meno di 2 sono selezionati, aggiungi il nuovo prodotto
+            if (prev.length < 2) {
+                return [...prev, product]
+            }
+        })
+    }
+
     return (
-        <GlobalContext.Provider value={{ favorites, toggleFavorite }}>
+        <GlobalContext.Provider value={{ favorites, toggleFavorite, toggleCompare, compareList }}>
             {children}
         </GlobalContext.Provider>
     )
