@@ -25,6 +25,8 @@ function GlobalContextProvider({ children }) {
 
     function toggleCompare(product) {
 
+        console.log("oggetto salvato in compareList", product)
+
         setCompareList(prev => {
 
             // se il prodotto è già stato selezionato, e viene cliccato di nuovo, rimuovilo

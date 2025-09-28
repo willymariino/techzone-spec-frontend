@@ -1,13 +1,55 @@
+import { useEffect, useState } from "react";
 import { useContext } from "react";
+import { useParams } from "react-router-dom";
 import GlobalContext from "../context/GlobalContext";
+import axios from "axios";
+
+async function getProductDetail(slug, setCurrentItem, setLoading) {
+
+    try {
+        const res = await axios.get(`http://localhost:3001/products/slug/${slug}`)
+        setCurrentItem(res.data.product)
+        setLoading(false)
+        console.log("oggetto completo", res.data)
+        console.log("solamente oggetto product", res.data.product)
+    }
+
+    catch (error) {
+        { console.error("errore nel caricamento dei dettagli del prodotto! 🙀🙀🙀🙀", error) }
+    }
+
+    finally {
+        console.log("operazione terminata")
+    }
+}
+
 
 function ComparerCard() {
 
     const { compareList } = useContext(GlobalContext)
 
+    const [currentItem, setCurrentItem] = useState(null)
+    const [loading, setLoading] = useState(true)
+
+    const { slug } = useParams()
+
     // fallback: se ci sono meno di 2 prodotti, riempi con oggetti vuoti
     const first = compareList[0] || {};
     const second = compareList[1] || {};
+
+    useEffect(() => {
+        if (slug) {
+            getProductDetail(slug, setCurrentItem, setLoading)
+        }
+    }, [slug])
+
+    if (loading) {
+        return (
+            <div>caricamento in corso...</div>
+        )
+    }
+
+
 
     return (
 
@@ -15,17 +57,18 @@ function ComparerCard() {
 
             <div style={{ flex: 1 }}>
                 <h1>{first.title}</h1>
+                <p>Price: {first.price}</p>
                 <p>Category: {first.category}</p>
                 <h2>Specifications:</h2>
-                <p>Internal memory: {first.internal_memory}</p>
-                <p>RAM: {first.ram}</p>
-                <p>CPU: {first.cpu}</p>
-                <p>GPU: {first.gpu}</p>
-                <p>Cooling: {first.cooling || "Not present"}</p>
+                <p>Internal memory: {currentItem.internal_memory}</p>
+                <p>RAM: {currentItem.ram}</p>
+                <p>CPU: {currentItem.cpu}</p>
+                <p>GPU: {currentItem.gpu}</p>
+                <p>Cooling: {currentItem.cooling || "Not present"}</p>
                 <h2>Description</h2>
-                <p>{first.description}</p>
+                <p>{currentItem.description}</p>
                 <ul>
-                    {first.optionals?.map((item, index) => (
+                    {currentItem.optionals?.map((item, index) => (
                         <li key={index}>
                             {item}
                         </li>
@@ -36,17 +79,18 @@ function ComparerCard() {
 
             <div style={{ flex: 1 }}>
                 <h1>{second.title}</h1>
+                <p>Price: {first.price}</p>
                 <p>Category: {second.category}</p>
                 <h2>Specifications:</h2>
-                <p>Internal memory: {second.internal_memory}</p>
-                <p>RAM: {second.ram}</p>
-                <p>CPU: {second.cpu}</p>
-                <p>GPU: {second.gpu}</p>
-                <p>Cooling: {second.cooling || "Not present"}</p>
+                <p>Internal memory: {currentItem.internal_memory}</p>
+                <p>RAM: {currentItem.ram}</p>
+                <p>CPU: {currentItem.cpu}</p>
+                <p>GPU: {currentItem.gpu}</p>
+                <p>Cooling: {currentItem.cooling || "Not present"}</p>
                 <h2>Description</h2>
-                <p>{second.description}</p>
+                <p>{currentItem.description}</p>
                 <ul>
-                    {second.optionals?.map((item, index) => (
+                    {currentItem.optionals?.map((item, index) => (
                         <li key={index}>{item}</li>
                     ))}
                 </ul>
