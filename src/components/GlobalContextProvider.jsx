@@ -1,8 +1,8 @@
-import { useState } from "react";
 import GlobalContext from "../context/GlobalContext";
+import useStorage from "../hooks/useStorage";
 
 function GlobalContextProvider({ children }) {
-    const [favorites, setFavorites] = useState([])
+    const [favorites, setFavorites] = useStorage("favorites", [])
 
     function toggleFavorite(product) {
 
