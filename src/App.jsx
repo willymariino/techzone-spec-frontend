@@ -25,7 +25,7 @@ function App() {
             <Route path="/product-detail/slug/:slug" Component={ProductDetail} />
             <Route path="/ShoppingCart" Component={ShoppingCart} />
             <Route path="/WishList" Component={WishList} />
-            <Route path="/Comparer" Component={ComparePage} />
+            <Route path="/ComparePage" Component={ComparePage} />
 
           </Route>
 

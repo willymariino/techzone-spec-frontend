@@ -19,7 +19,7 @@ function Header() {
             <nav>
                 <NavLink to="/WishList" className="nav-link"> <CiBookmark />  Wish List </NavLink>
                 <NavLink to="/ShoppingCart" className="nav-link"> <FaCartShopping /> Shopping Cart </NavLink>
-                <NavLink to="/Comparer" className="nav-link"><MdOutlineCompare /> Comparatore</NavLink>
+                <NavLink to="/ComparePage" className="nav-link"><MdOutlineCompare /> Comparatore</NavLink>
             </nav>
 
 
