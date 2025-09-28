@@ -1,73 +1,78 @@
 import { useState } from "react";
 
-// itemkey: la chiave con cui leggere e scrivere in localStorage
-// initialValue: il valore di default da usare se il localStorage è vuoto o invalido
+/*
+ * Custom hook per sincronizzare uno stato React con localStorage.
+ * 
+ * @param {string} itemKey - Chiave con cui leggere/scrivere in localStorage.
+ * @param {*} initialValue - Valore di default se localStorage è vuoto o contiene dati non validi.
+ * @returns {[any, Function]} - Array con lo stato attuale e una funzione per aggiornarlo (e salvarlo su localStorage).
+ */
 function useStorage(itemKey, initialValue) {
 
+    // Inizializza lo stato leggendo da localStorage (o usando initialValue se necessario)
     const [state, setState] = useState(() => {
 
         try {
-            // prendimi la chiave del del localStorage 
+            // Recupera il valore associato a itemKey da localStorage (stringa JSON o null)
             const raw = localStorage.getItem(itemKey);
 
-            // se non esiste ancora nulla per questa chiave
+            // Se la chiave non esiste ancora in localStorage:
             if (raw === null) {
-                // inizializziamo initialValue come stringa json
+                // Salva initialValue come stringa JSON in localStorage
                 localStorage.setItem(itemKey, JSON.stringify(initialValue));
-                // e lo restituiamo come valore iniziale
+                // Restituisce initialValue come valore iniziale dello stato
                 return initialValue;
             }
             // se c'è già un valore nel localStorage, viene parsato per tornare da JSON al suo tipo originale (boolean, array, oggetto)
             return JSON.parse(raw);
 
-        }
-
-        catch (error) {
+        } catch (error) {
+            // Se il parsing fallisce (dati corrotti o non validi), logga l'errore
             console.error("useStorage: errore nel parsing da localStorage:", error);
-            // se i dati sono corrotti, reimposto il valore iniziale
+            // Prova a ripristinare initialValue in localStorage
             try {
                 localStorage.setItem(itemKey, JSON.stringify(initialValue));
-
-            }
-
-            catch (e) {
+            } catch (e) {
                 console.error("useStorage: errore nel reimpostare initialValue:", e);
             }
-
-            // il catch restituisce comunque initialValue come fallback sicuro
+            // Usa comunque initialValue come fallback sicuro
             return initialValue;
         }
 
     });
 
-
-    // funzione che verrà usata per modificare e salvare lo stato in localStorage
+    /*
+     * Funzione per aggiornare sia lo stato React che il valore in localStorage.
+     * Accetta sia un valore diretto che una funzione updater (come setState di React).
+     */
     const changeState = (valueOrUpdater) => {
 
-        // setState con updater così sono sicuro di avere sempre lo stato più aggiornato 
+        // Usa la forma updater di setState per garantire di avere sempre lo stato più aggiornato
         setState((prev) => {
-            // calcolo il valore finale usando lo stato precedente (supporto updater function)
+            // Calcola il nuovo valore (supporta sia valore diretto che funzione updater)
+            // in pratica se ho un booleano ho bisogno della funzione updater per invertire lo stato precedente, mentre se ho una stringa, un oggetto un array, 
+            // non mi interessa lo stato precedente, perché invece sovrascrivo direttamente con il nuovo stato
             const valueToStore =
                 typeof valueOrUpdater === "function"
                     ? valueOrUpdater(prev)
                     : valueOrUpdater;
 
-
-            // fallback: se per qualche motivo è undefined, ripiego su initialValue
+            // Se il nuovo valore è undefined, usa initialValue come fallback
             const safeValue = valueToStore === undefined ? initialValue : valueToStore;
 
             try {
+                // Salva il nuovo valore (serializzato in JSON) su localStorage
                 localStorage.setItem(itemKey, JSON.stringify(safeValue));
-
             } catch (error) {
                 console.error("useStorage: errore nel salvataggio su localStorage:", error);
             }
 
-            // restituiamo il valore più aggiornato allo stato react, così la UI può aggiornarsi immediatamente
+            // Restituisce il valore aggiornato per aggiornare lo stato React (e quindi la UI)
             return safeValue;
         });
     };
 
+    // Restituisce lo stato attuale e la funzione per aggiornarlo
     return [state, changeState];
 }
 
