@@ -10,7 +10,7 @@ function ProductCard({ product }) {
     const storageKey = `bookmark-${product.id}`
 
     const [isBookMarked, setIsBookMarked] = useStorage(storageKey, false)
-    const { toggleFavorite } = useContext(GlobalContext)
+    const { toggleFavorite, toggleCompare } = useContext(GlobalContext)
 
     const handleBookmark = (e) => {
         // Blocca la propagazione dell'evento verso i genitori.
@@ -33,6 +33,14 @@ function ProductCard({ product }) {
         toggleFavorite(product) //aggiorna il contesto globale
     }
 
+    function handleCompare(e) {
+
+        e.stopPropagation()
+        e.preventDefault()
+        toggleCompare(product)
+
+    }
+
     // console.log("title:", product.title)
     // console.log("category:", product.category)
     // console.log("price:", product.price)
@@ -50,7 +58,9 @@ function ProductCard({ product }) {
                         <button className="add-button" onClick={handleBookmark}>
                             {isBookMarked ? <FaBookmark /> : <CiBookmark />}
                         </button>
-                        <button className="add-button"><MdOutlineCompare /></button>
+                        <button className="add-button" onClick={handleCompare}>
+                            <MdOutlineCompare />
+                        </button>
                     </div>
 
                 </div>

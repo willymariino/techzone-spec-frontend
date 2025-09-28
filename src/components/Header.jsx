@@ -3,6 +3,7 @@ import { FaComputer } from "react-icons/fa6";
 import { FaLaptopCode } from "react-icons/fa";
 import { CiBookmark } from "react-icons/ci";
 import { FaCartShopping } from "react-icons/fa6";
+import { MdOutlineCompare } from "react-icons/md";
 import { Link } from "react-router-dom";
 
 function Header() {
@@ -18,6 +19,7 @@ function Header() {
             <nav>
                 <NavLink to="/WishList" className="nav-link"> <CiBookmark />  Wish List </NavLink>
                 <NavLink to="/ShoppingCart" className="nav-link"> <FaCartShopping /> Shopping Cart </NavLink>
+                <NavLink to="/Comparer" className="nav_link"><MdOutlineCompare /> Comparatore</NavLink>
             </nav>
 
 
