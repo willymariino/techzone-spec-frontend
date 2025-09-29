@@ -1,7 +1,9 @@
+import { useState } from "react";
 import { useContext } from "react";
 import { CiBookmark } from "react-icons/ci";
 import { MdOutlineCompare } from "react-icons/md";
 import { FaBookmark } from "react-icons/fa";
+import { FaCheck } from "react-icons/fa";
 import GlobalContext from "../context/GlobalContext";
 import useStorage from "../hooks/useStorage";
 
@@ -10,6 +12,7 @@ function ProductCard({ product }) {
     const storageKey = `bookmark-${product.id}`
 
     const [isBookMarked, setIsBookMarked] = useStorage(storageKey, false)
+    const [isCompared, setIsCompared] = useState(false)
     const { toggleFavorite, toggleCompare } = useContext(GlobalContext)
 
     const handleBookmark = (e) => {
@@ -39,7 +42,11 @@ function ProductCard({ product }) {
         e.preventDefault()
         toggleCompare(product)
 
+        setIsCompared(prev => !prev)
+
     }
+
+
 
     // console.log("title:", product.title)
     // console.log("category:", product.category)
@@ -59,7 +66,7 @@ function ProductCard({ product }) {
                             {isBookMarked ? <FaBookmark /> : <CiBookmark />}
                         </button>
                         <button className="add-button" onClick={handleCompare}>
-                            <MdOutlineCompare />
+                            {isCompared ? <FaCheck /> : <MdOutlineCompare />}
                         </button>
                     </div>
 

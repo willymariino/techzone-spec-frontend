@@ -46,7 +46,7 @@ function Footer() {
 
                 <div className="footer-bottom">
 
-                    <p>© 2025 TechZone. Tutti i diritti riservati.</p>
+
 
                     <div className="social-icons">
                         <strong> <p> follow us </p></strong>
@@ -55,6 +55,8 @@ function Footer() {
                         <a href="#" className="nav-link icon"><FaXTwitter /></a>
                         <a href="#" className="nav-link icon"> <FaYoutube /></a>
                     </div>
+
+                    <p>© 2025 TechZone. Tutti i diritti riservati.</p>
 
                 </div>
 

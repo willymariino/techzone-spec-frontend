@@ -1,8 +1,7 @@
 /* * {
-    outline: 1px solid rgba(255, 0, 0, 0.1);
-    debug visivo 
-} 
-
+    outline: 1px solid rgba(35, 16, 246, 0.1);
+    /* debug visivo 
+}
 */
 
 html,
@@ -12,10 +11,20 @@ body {
     box-sizing: border-box;
 }
 
+
+#root {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+
+}
+
 main {
     padding: 0 32px;
 
 }
+
+
 
 .title-section {
     margin-bottom: 20px;
@@ -46,6 +55,7 @@ main {
     position: relative;
     border: 1px solid rgba(0, 0, 0, 0.06);
     padding-left: 20px;
+
 }
 
 .card-header {
@@ -144,6 +154,7 @@ header a {
 .footer {
     background-color: #EE1C25;
     color: white;
+    margin-top: auto;
 }
 
 .footer-top {
@@ -239,7 +250,7 @@ header a {
     }
 
     .product-card {
-        min-width: 100px;
+        min-width: 300px;
     }
 
     .header-nav {

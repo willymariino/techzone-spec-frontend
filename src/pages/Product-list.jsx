@@ -1,5 +1,6 @@
 import ProductCard from "../components/ProductCard"
-import { useState, useEffect } from "react"
+import GlobalContext from "../context/GlobalContext";
+import { useState, useEffect, useContext } from "react"
 import axios from "axios"
 import { Link } from "react-router-dom";
 
@@ -32,6 +33,12 @@ function ProductList() {
     const [category, setCategory] = useState("")
     const [products, setProducts] = useState([])
     const [sortOrder, setSortOrder] = useState("");
+    const { setCompareList } = useContext(GlobalContext)
+
+
+    useEffect(() => {
+        setCompareList([]); // pulisce solo quando monti ProductList
+    }, []);
 
 
 

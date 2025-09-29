@@ -70,7 +70,8 @@ function ProductDetail() {
                 <p>{currentItem.description}</p>
 
 
-                Optionals:
+                <p> Optionals: </p>
+
 
                 <ul>
 

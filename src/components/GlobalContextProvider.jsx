@@ -38,11 +38,13 @@ function GlobalContextProvider({ children }) {
             if (prev.length < 2) {
                 return [...prev, product]
             }
+
+            return prev
         })
     }
 
     return (
-        <GlobalContext.Provider value={{ favorites, toggleFavorite, toggleCompare, compareList }}>
+        <GlobalContext.Provider value={{ favorites, toggleFavorite, toggleCompare, compareList, setCompareList }}>
             {children}
         </GlobalContext.Provider>
     )

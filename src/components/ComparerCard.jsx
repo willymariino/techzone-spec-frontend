@@ -75,6 +75,8 @@ function ComparerCard() {
                 <p>Cooling: {first.cooling || "Not present"}</p>
                 <h2>Description</h2>
                 <p>{first.description}</p>
+
+                <p> Optionals: </p>
                 <ul>
                     {first.optionals?.map((item, index) => (
                         <li key={index}>
@@ -97,6 +99,8 @@ function ComparerCard() {
                 <p>Cooling: {second.cooling || "Not present"}</p>
                 <h2>Description</h2>
                 <p>{second.description}</p>
+
+                <p> Optionals: </p>
                 <ul>
                     {second.optionals?.map((item, index) => (
                         <li key={index}>{item}</li>
