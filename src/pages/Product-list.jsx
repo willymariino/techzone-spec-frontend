@@ -37,6 +37,9 @@ function ProductList() {
         fetchProducts(query, category, setProducts) // ricordarsi che gli argomenti vanno scritti nello stesso ordine dei parametri
     }, [query, category])
 
+    const ascendingOrder = products.sort((a, b) => a.title.localeCompare(b.title))
+
+
     return (
         <main>
 
@@ -82,6 +85,19 @@ function ProductList() {
                         <option value="networking">networking</option>
                         <option value="audio">audio</option>
                         <option value="storage">storage</option>
+                    </select>
+                </section>
+
+                <section>
+                    <label htmlFor="alphabetical-sorting">oridine alfabtico</label>
+
+                    <select
+                        id="alphabetical-sorting"
+                        value={products}
+                        onChange={e => setProducts(e.target.value)}
+                    >
+                        <option value="">seleziona un ordinamento</option>
+                        <option value={ascendingOrder}>a-z</option>
                     </select>
                 </section>
 
