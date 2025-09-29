@@ -31,14 +31,18 @@ function ProductList() {
     const [query, setQuery] = useState("")
     const [category, setCategory] = useState("")
     const [products, setProducts] = useState([])
+    const [sortOrder, setSortOrder] = useState("");
+
 
 
     useEffect(() => {
         fetchProducts(query, category, setProducts) // ricordarsi che gli argomenti vanno scritti nello stesso ordine dei parametri
     }, [query, category])
 
-    const ascendingOrder = products.sort((a, b) => a.title.localeCompare(b.title))
-
+    const sortedProducts = [...products].sort((a, b) => { // uso lo spread operator per creare una nuova copia di products e lasciare l'originale invariato
+        if (sortOrder === "ascending") return a.title.localeCompare(b.title)
+        if (sortOrder === "descending") return b.title.localeCompare(a.title)
+    })
 
     return (
         <main>
@@ -93,11 +97,12 @@ function ProductList() {
 
                     <select
                         id="alphabetical-sorting"
-                        value={products}
-                        onChange={e => setProducts(e.target.value)}
+                        value={sortOrder}
+                        onChange={e => setSortOrder(e.target.value)}
                     >
                         <option value="">seleziona un ordinamento</option>
-                        <option value={ascendingOrder}>a-z</option>
+                        <option value="ascending">a-z</option>
+                        <option value="descending">z-a</option>
                     </select>
                 </section>
 
@@ -107,7 +112,7 @@ function ProductList() {
 
             <ul className="product-list">
 
-                {products.map(product => (
+                {sortedProducts.map(product => (
                     <li key={product.id} className="product-card">
                         <Link to={`/product-detail/slug/${product.slug}`}>
                             <ProductCard product={product} />
