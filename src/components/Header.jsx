@@ -16,7 +16,7 @@ function Header() {
                 <h1 className="Header-title"> <FaComputer />  TechZone <FaLaptopCode /> </h1>
             </Link>
 
-            <nav>
+            <nav className="header-nav">
                 <NavLink to="/WishList" className="nav-link"> <CiBookmark />  Wish List </NavLink>
                 <NavLink to="/ShoppingCart" className="nav-link"> <FaCartShopping /> Shopping Cart </NavLink>
                 <NavLink to="/ComparePage" className="nav-link"><MdOutlineCompare /> Comparatore</NavLink>
