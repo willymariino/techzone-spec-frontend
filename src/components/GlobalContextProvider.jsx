@@ -6,6 +6,7 @@ import useStorage from "../hooks/useStorage";
 function GlobalContextProvider({ children }) {
     const [favorites, setFavorites] = useStorage("favorites", [])
     const [compareList, setCompareList] = useState([])
+    const [cartProducts, setCartProducts] = useState([])
 
     function toggleFavorite(product) {
 
@@ -43,8 +44,57 @@ function GlobalContextProvider({ children }) {
         })
     }
 
+    function addTocart(currentItems) {
+
+        // verifica se il prodotto è già presente
+        const isProductAlreadyAdded = currentItems.some(item => item.id === currentItems.id)
+
+        if (isProductAlreadyAdded) {
+            updateProductQuantity(currentItems.id)
+        }
+
+        // se non è presente aagiungi il prodotto con quantità 1
+        const productToAdd = {
+            ...currentItems,
+            quantity: 1
+        }
+
+        // aggiorna lo stato con il nuovo prodotto
+        setCartProducts(curr => [...curr, productToAdd])
+
+        const updateProductQuantity = (cartProduct) => { // cartProduct rappresenta il nome del prodotto già nel carrello, di cui vogliamo aumentare la quantità, ed è solo una **stringa** (es: "Mela"), usata per confronti
+
+            setCartProducts(curr => {
+
+                return curr.map(p => {  // uso .map per scorrere ogni prodotto nel carrello, di cui p è ogni singolo prodotto
+
+                    if (p.id === cartProduct) { // qui vedo se il prodotto nel carrello che sto scorrendo ha lo stesso nome del prodotto selezionato, se true, aggiungo + 1 alla quantità
+                        return {
+                            ...p,
+                            quantity: p.quantity + 1
+                        }
+                    }
+
+                    else {
+                        return p // altrimenti se non è il prodotto che voglio aggiornare, lo lascio invariato
+                    }
+                })
+            })
+        }
+
+        // funzione per rimuovere un prodotto dal carrello
+        const removeFromCart = (cartProduct) => {
+            setCartProducts(curr => curr.filter(p => p.id !== cartProduct))
+
+        }
+
+        // Calcolo del totale da pagare sommando prezzo * quantità per ogni prodotto utilizzando reduce
+        const totalToPay = cartProducts.reduce((acc, p) => acc + (p.price * p.quantity), 0)
+
+    }
+
     return (
-        <GlobalContext.Provider value={{ favorites, toggleFavorite, toggleCompare, compareList, setCompareList }}>
+        <GlobalContext.Provider value={{ favorites, toggleFavorite, toggleCompare, compareList, setCompareList, addTocart, cartProducts }}>
             {children}
         </GlobalContext.Provider>
     )
