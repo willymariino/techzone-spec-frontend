@@ -1,8 +1,18 @@
 import ProductCard from "../components/ProductCard"
 import GlobalContext from "../context/GlobalContext";
-import { useState, useEffect, useContext } from "react"
+import { useState, useEffect, useContext, useCallback } from "react"
 import axios from "axios"
 import { Link } from "react-router-dom";
+
+function debounce(callback, delay) {
+    let timer
+    return (value) => {
+        clearTimeout(timer)
+        timer = setTimeout(() => {
+            callback(value)
+        }, delay)
+    }
+}
 
 async function fetchProducts(query, category, setProducts) {
     // verifico i parametri ricevuti dalla chiamata per debug
@@ -35,16 +45,20 @@ function ProductList() {
     const [sortOrder, setSortOrder] = useState("");
     const { setCompareList } = useContext(GlobalContext)
 
-
+    // funzione che svuota compareList al mount di Product-List per permettere nuove comparazioni
     useEffect(() => {
         setCompareList([]);
     }, []);
 
+    const debouncedFetchProducts = useCallback(
+        debounce((queryValue) => fetchProducts(queryValue, query, category, setProducts), 500),
+        [setCategory, setQuery]
+    )
 
 
     useEffect(() => {
-        fetchProducts(query, category, setProducts) // ricordarsi che gli argomenti vanno scritti nello stesso ordine dei parametri
-    }, [query, category])
+        debouncedFetchProducts(query, category, setProducts) // ricordarsi che gli argomenti vanno scritti nello stesso ordine dei parametri
+    }, [query, category, debouncedFetchProducts])
 
     const sortedProducts = [...products].sort((a, b) => { // uso lo spread operator per creare una nuova copia di products e lasciare l'originale invariato
         if (sortOrder === "ascending") return a.title.localeCompare(b.title)
