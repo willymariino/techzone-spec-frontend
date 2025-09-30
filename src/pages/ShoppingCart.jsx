@@ -8,15 +8,17 @@ function ShoppingCart() {
     return (
         <>
 
+            <h1>Il tuo carrello acquisti</h1>
+
             <ul>
                 {cartProducts.map((p, index) => (
 
                     <li key={index} className="cart-list">
 
 
-                        {p.title}: {p.price} € quantità: {p.quantity}
+                        <strong>   {p.title} </strong> prezzo: {p.price} €   quantità: {p.quantity}
 
-                        <button onClick={() => updateProductQuantity(p.name)} className="increase-quantity-btn"> {/*qui passo solo la proprietà '.name' (cioè il valore stringa "mela" ad esempio) perchè mi basta il nome per identificare quale prodotto aggiornare. */}
+                        <button onClick={() => updateProductQuantity(p.id)} className="increase-quantity-btn"> {/*qui passo solo la proprietà '.name' (cioè il valore stringa "mela" ad esempio) perchè mi basta il nome per identificare quale prodotto aggiornare. */}
                             incrementa quantità
                         </button>
 
@@ -33,7 +35,7 @@ function ShoppingCart() {
 
             </ul>
 
-            <h3>totale da pagare: {totalToPay.toFixed(2)}</h3>
+            <h3 className="total-To-Pay">totale da pagare: {totalToPay.toFixed(2)} €</h3>
 
         </>
     )
