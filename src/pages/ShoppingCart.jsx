@@ -3,17 +3,20 @@ import GlobalContext from "../context/GlobalContext"
 
 function ShoppingCart() {
 
-    const { cartProducts, removeFromCart, totalToPay, updateProductQuantity } = useContext(GlobalContext)
+    const { cartProducts, setCartProducts, removeFromCart, totalToPay, updateProductQuantity } = useContext(GlobalContext)
 
     return (
         <>
 
             <h1>Il tuo carrello acquisti</h1>
+            <button onClick={() => setCartProducts([])} className="increase-quantity-btn">
+                svuota carrello
+            </button>
 
             <ul>
-                {cartProducts.map((p, index) => (
+                {cartProducts.map(p => (
 
-                    <li key={index} className="cart-list">
+                    <li key={p.id} className="cart-list">
 
 
                         <strong>   {p.title} </strong> prezzo: {p.price} €   quantità: {p.quantity}

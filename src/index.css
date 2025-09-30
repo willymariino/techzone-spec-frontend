@@ -156,7 +156,7 @@ main {
     margin-left: 15px;
     border-radius: 15px;
     border: none;
-    background-color: lightblue;
+    background-color: #e0e0e0;
     cursor: pointer;
     max-width: 150px;
 
@@ -175,6 +175,7 @@ main {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
     max-width: 1280px;
+    margin: 0 auto;
 }
 
 

@@ -47,13 +47,14 @@ function GlobalContextProvider({ children }) {
     function addToCart(currentItem) {
 
         // verifica se il prodotto è già presente
-        const isProductAlreadyAdded = cartProducts.some(item => item.id === cartProducts.id)
+        const isProductAlreadyAdded = cartProducts.some(item => item.id === currentItem.id)
 
         if (isProductAlreadyAdded) {
             updateProductQuantity(currentItem.id)
+            return
         }
 
-        // se non è presente aagiungi il prodotto con quantità 1
+        // se non è presente aggiungi il prodotto con quantità 1
         const productToAdd = {
             ...currentItem,
             quantity: 1
@@ -95,7 +96,7 @@ function GlobalContextProvider({ children }) {
 
 
     return (
-        <GlobalContext.Provider value={{ favorites, toggleFavorite, toggleCompare, compareList, setCompareList, addToCart, cartProducts, removeFromCart, totalToPay, updateProductQuantity }}>
+        <GlobalContext.Provider value={{ favorites, toggleFavorite, toggleCompare, compareList, setCompareList, addToCart, cartProducts, setCartProducts, removeFromCart, totalToPay, updateProductQuantity }}>
             {children}
         </GlobalContext.Provider>
     )
