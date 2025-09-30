@@ -51,13 +51,13 @@ function ProductList() {
     }, []);
 
     const debouncedFetchProducts = useCallback(
-        debounce((queryValue) => fetchProducts(queryValue, query, category, setProducts), 500),
+        debounce((queryValue) => fetchProducts(queryValue, category, setProducts), 1000),
         [setCategory, setQuery]
     )
 
 
     useEffect(() => {
-        debouncedFetchProducts(query, category, setProducts) // ricordarsi che gli argomenti vanno scritti nello stesso ordine dei parametri
+        debouncedFetchProducts(query) // ricordarsi che gli argomenti vanno scritti nello stesso ordine dei parametri
     }, [query, category, debouncedFetchProducts])
 
     const sortedProducts = [...products].sort((a, b) => { // uso lo spread operator per creare una nuova copia di products e lasciare l'originale invariato
