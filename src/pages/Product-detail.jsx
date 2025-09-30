@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
+import GlobalContext from "../context/GlobalContext"
 import axios from "axios"
 
 async function getProductDetail(slug, setCurrentItem, setLoading) {
@@ -25,6 +26,7 @@ function ProductDetail() {
 
     const [currentItem, setCurrentItem] = useState(null)
     const [loading, setLoading] = useState(true)
+    const { addTocart } = useContext(GlobalContext)
 
     const { slug } = useParams()
 
@@ -39,6 +41,11 @@ function ProductDetail() {
         return (
             <div>caricamento in corso...</div>
         )
+    }
+
+    function handleCart() {
+
+        addTocart(currentItem)
     }
 
 
@@ -92,7 +99,7 @@ function ProductDetail() {
                 </ul>
 
                 <div className="add-cart-wrapper">
-                    <button className="btn-add-cart">
+                    <button className="btn-add-cart" onClick={handleCart}>
                         <span className="icon">🛒</span>
                         Aggiungi al carrello
                     </button>

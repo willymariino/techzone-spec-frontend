@@ -44,57 +44,58 @@ function GlobalContextProvider({ children }) {
         })
     }
 
-    function addTocart(currentItems) {
+    function addToCart(currentItem) {
 
         // verifica se il prodotto è già presente
-        const isProductAlreadyAdded = currentItems.some(item => item.id === currentItems.id)
+        const isProductAlreadyAdded = cartProducts.some(item => item.id === cartProducts.id)
 
         if (isProductAlreadyAdded) {
-            updateProductQuantity(currentItems.id)
+            updateProductQuantity(currentItem.id)
         }
 
         // se non è presente aagiungi il prodotto con quantità 1
         const productToAdd = {
-            ...currentItems,
+            ...currentItem,
             quantity: 1
         }
 
         // aggiorna lo stato con il nuovo prodotto
         setCartProducts(curr => [...curr, productToAdd])
 
-        const updateProductQuantity = (cartProduct) => { // cartProduct rappresenta il nome del prodotto già nel carrello, di cui vogliamo aumentare la quantità, ed è solo una **stringa** (es: "Mela"), usata per confronti
+    }
 
-            setCartProducts(curr => {
+    const updateProductQuantity = (productId) => { // cartProduct rappresenta il nome del prodotto già nel carrello, di cui vogliamo aumentare la quantità, ed è solo una **stringa** (es: "Mela"), usata per confronti
 
-                return curr.map(p => {  // uso .map per scorrere ogni prodotto nel carrello, di cui p è ogni singolo prodotto
+        setCartProducts(curr => {
 
-                    if (p.id === cartProduct) { // qui vedo se il prodotto nel carrello che sto scorrendo ha lo stesso nome del prodotto selezionato, se true, aggiungo + 1 alla quantità
-                        return {
-                            ...p,
-                            quantity: p.quantity + 1
-                        }
+            return curr.map(p => {  // uso .map per scorrere ogni prodotto nel carrello, di cui p è ogni singolo prodotto
+
+                if (p.id === productId) { // qui vedo se il prodotto nel carrello che sto scorrendo ha lo stesso nome del prodotto selezionato, se true, aggiungo + 1 alla quantità
+                    return {
+                        ...p,
+                        quantity: p.quantity + 1
                     }
+                }
 
-                    else {
-                        return p // altrimenti se non è il prodotto che voglio aggiornare, lo lascio invariato
-                    }
-                })
+                else {
+                    return p // altrimenti se non è il prodotto che voglio aggiornare, lo lascio invariato
+                }
             })
-        }
+        })
+    }
 
-        // funzione per rimuovere un prodotto dal carrello
-        const removeFromCart = (cartProduct) => {
-            setCartProducts(curr => curr.filter(p => p.id !== cartProduct))
-
-        }
-
-        // Calcolo del totale da pagare sommando prezzo * quantità per ogni prodotto utilizzando reduce
-        const totalToPay = cartProducts.reduce((acc, p) => acc + (p.price * p.quantity), 0)
+    // funzione per rimuovere un prodotto dal carrello
+    const removeFromCart = (productId) => {
+        setCartProducts(curr => curr.filter(p => p.id !== productId))
 
     }
 
+    // Calcolo del totale da pagare sommando prezzo * quantità per ogni prodotto utilizzando reduce
+    const totalToPay = cartProducts.reduce((acc, p) => acc + (p.price * p.quantity), 0)
+
+
     return (
-        <GlobalContext.Provider value={{ favorites, toggleFavorite, toggleCompare, compareList, setCompareList, addTocart, cartProducts }}>
+        <GlobalContext.Provider value={{ favorites, toggleFavorite, toggleCompare, compareList, setCompareList, addToCart, cartProducts, removeFromCart, totalToPay, updateProductQuantity }}>
             {children}
         </GlobalContext.Provider>
     )
