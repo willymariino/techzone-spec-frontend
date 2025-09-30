@@ -73,6 +73,7 @@ function ProductDetail() {
                     <p>CPU: {currentItem.cpu}</p>
                     <p>GPU: {currentItem.gpu}</p>
                     <p>Cooling: {currentItem.cooling || "Not present"}</p>
+                    <p>price: {currentItem.price}</p>
 
                 </section>
 

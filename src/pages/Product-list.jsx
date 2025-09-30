@@ -114,7 +114,7 @@ function ProductList() {
                 </section>
 
                 <section>
-                    <label htmlFor="alphabetical-sorting">oridine alfabtico</label>
+                    <label htmlFor="alphabetical-sorting">ordine alfabtico</label>
 
                     <select
                         id="alphabetical-sorting"
