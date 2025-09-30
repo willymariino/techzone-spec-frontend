@@ -1,7 +1,39 @@
+import { useContext } from "react"
+import GlobalContext from "../context/GlobalContext"
+
 function ShoppingCart() {
+
+    const { cartProducts, removeFromCart, totalToPay, updateProductQuantity } = useContext(GlobalContext)
 
     return (
         <>
+
+            <ul>
+                {cartProducts.map((p, index) => (
+
+                    <li key={index} className="cart-list">
+
+
+                        {p.title}: {p.price} € quantità: {p.quantity}
+
+                        <button onClick={() => updateProductQuantity(p.name)} className="increase-quantity-btn"> {/*qui passo solo la proprietà '.name' (cioè il valore stringa "mela" ad esempio) perchè mi basta il nome per identificare quale prodotto aggiornare. */}
+                            incrementa quantità
+                        </button>
+
+                        <button onClick={() => removeFromCart(p.id)} className="increase-quantity-btn">
+                            rimuovi dal carrello
+                        </button>
+
+
+
+                    </li>
+
+
+                ))}
+
+            </ul>
+
+            <h3>totale da pagare: {totalToPay.toFixed(2)}</h3>
 
         </>
     )

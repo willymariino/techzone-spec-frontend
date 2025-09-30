@@ -152,6 +152,18 @@ main {
     transform: scale(0.97);
 }
 
+.increase-quantity-btn {
+    margin-left: 15px;
+    border-radius: 15px;
+    border: none;
+    background-color: lightblue;
+    cursor: pointer;
+}
+
+.cart-list {
+    padding-bottom: 20px;
+}
+
 
 .product-description {
     margin-left: 1rem;
@@ -337,6 +349,17 @@ header a {
         justify-content: center;
         flex-direction: column;
 
+    }
+
+    .cart-list {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .increase-quantity-btn {
+        max-width: 130px;
+        margin-bottom: 15px;
     }
 
     .footer {

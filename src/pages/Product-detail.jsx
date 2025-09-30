@@ -26,7 +26,7 @@ function ProductDetail() {
 
     const [currentItem, setCurrentItem] = useState(null)
     const [loading, setLoading] = useState(true)
-    const { addTocart } = useContext(GlobalContext)
+    const { addToCart } = useContext(GlobalContext)
 
     const { slug } = useParams()
 
@@ -45,7 +45,7 @@ function ProductDetail() {
 
     function handleCart() {
 
-        addTocart(currentItem)
+        addToCart(currentItem)
     }
 
 
