@@ -43,27 +43,35 @@ function ProductDetail() {
 
 
     return (
-        <>
+
+        <main>
 
             <h1>{currentItem.title}</h1>
 
             <p>Category: {currentItem.category}</p>
 
+            <div className="detail-card">
+
+                <div className="image-container">
+                    <span> image placeholder</span>
+                </div>
 
 
-            <section>
+                <section>
 
-                <h2>Specifications:</h2>
+                    <h2>Specifications:</h2>
 
-                <p>Internal memory: {currentItem.internal_memory}</p>
-                <p>RAM: {currentItem.ram}</p>
-                <p>CPU: {currentItem.cpu}</p>
-                <p>GPU: {currentItem.gpu}</p>
-                <p>Cooling: {currentItem.cooling || "Not present"}</p>
+                    <p>Internal memory: {currentItem.internal_memory}</p>
+                    <p>RAM: {currentItem.ram}</p>
+                    <p>CPU: {currentItem.cpu}</p>
+                    <p>GPU: {currentItem.gpu}</p>
+                    <p>Cooling: {currentItem.cooling || "Not present"}</p>
 
-            </section>
+                </section>
 
-            <section>
+            </div>
+
+            <section className="product-description">
 
                 <h2>Description</h2>
 
@@ -83,11 +91,19 @@ function ProductDetail() {
 
                 </ul>
 
+                <div className="add-cart-wrapper">
+                    <button className="btn-add-cart">
+                        <span className="icon">🛒</span>
+                        Aggiungi al carrello
+                    </button>
+                </div>
+
 
 
             </section>
 
-        </>
+        </main>
+
     )
 }
 
