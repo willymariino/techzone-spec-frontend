@@ -73,6 +73,7 @@ function ComparerCard() {
                 <p>CPU: {first.cpu}</p>
                 <p>GPU: {first.gpu}</p>
                 <p>Cooling: {first.cooling || "Not present"}</p>
+                <p>Price: {first.price}</p>
                 <h2>Description</h2>
                 <p>{first.description}</p>
 
@@ -97,6 +98,7 @@ function ComparerCard() {
                 <p>CPU: {second.cpu}</p>
                 <p>GPU: {second.gpu}</p>
                 <p>Cooling: {second.cooling || "Not present"}</p>
+                <p>Price: {second.price}</p>
                 <h2>Description</h2>
                 <p>{second.description}</p>
 

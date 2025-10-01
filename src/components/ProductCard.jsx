@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, memo } from "react";
 import { useContext } from "react";
 import { CiBookmark } from "react-icons/ci";
 import { MdOutlineCompare } from "react-icons/md";
@@ -81,4 +81,4 @@ function ProductCard({ product }) {
     )
 }
 
-export default ProductCard
+export default memo(ProductCard)
