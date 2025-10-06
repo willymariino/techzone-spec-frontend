@@ -57,11 +57,11 @@ function ProductList() {
 
 
     useEffect(() => {
-        debouncedFetchProducts(query, category) // ricordarsi che gli argomenti vanno scritti nello stesso ordine dei parametri
+        debouncedFetchProducts(query, category)
     }, [query, category, debouncedFetchProducts])
 
 
-
+    //  funzione per riordinare i prodotti in ordine alfabetico
     const sortedProducts = [...products].sort((a, b) => { // uso lo spread operator per creare una nuova copia di products e lasciare l'originale invariato
         if (sortOrder === "ascending") return a.title.localeCompare(b.title)
         if (sortOrder === "descending") return b.title.localeCompare(a.title)
