@@ -6,10 +6,10 @@ import { Link } from "react-router-dom";
 
 function debounce(callback, delay) {
     let timer
-    return (value) => {
+    return (queryValue, categoryValue) => {
         clearTimeout(timer)
         timer = setTimeout(() => {
-            callback(value)
+            callback(queryValue, categoryValue)
         }, delay)
     }
 }
@@ -51,14 +51,16 @@ function ProductList() {
     }, []);
 
     const debouncedFetchProducts = useCallback(
-        debounce((queryValue) => fetchProducts(queryValue, category, setProducts), 1000),
+        debounce((queryValue, categoryValue) => fetchProducts(queryValue, categoryValue, setProducts), 1000), // queryValue e categoryValue sono i paramatri dinamici che mi permettono di aggiornare gli stati query e category
         [setCategory, setQuery]
     )
 
 
     useEffect(() => {
-        debouncedFetchProducts(query) // ricordarsi che gli argomenti vanno scritti nello stesso ordine dei parametri
+        debouncedFetchProducts(query, category) // ricordarsi che gli argomenti vanno scritti nello stesso ordine dei parametri
     }, [query, category, debouncedFetchProducts])
+
+
 
     const sortedProducts = [...products].sort((a, b) => { // uso lo spread operator per creare una nuova copia di products e lasciare l'originale invariato
         if (sortOrder === "ascending") return a.title.localeCompare(b.title)
