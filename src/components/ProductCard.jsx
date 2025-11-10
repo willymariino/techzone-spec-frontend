@@ -72,7 +72,7 @@ function ProductCard({ product }) {
 
                 </div>
 
-                <p>category:{product.category}</p>
+                <p>category: {product.category}</p>
                 <p>price: {product.price}</p>
 
             </div>

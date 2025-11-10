@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom"
-import ProductList from "./pages/product-list"
+import ProductList from "./pages/Product-list"
 import ProductDetail from "./pages/Product-detail"
 import WishList from "./pages/WishList"
 import ShoppingCart from "./pages/ShoppingCart"
