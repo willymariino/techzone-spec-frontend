@@ -3,10 +3,13 @@ import { useParams } from "react-router-dom"
 import GlobalContext from "../context/GlobalContext"
 import axios from "axios"
 
+const API_URL = import.meta.env.VITE_API_URL;
+
+
 async function getProductDetail(slug, setCurrentItem, setLoading) {
 
     try {
-        const res = await axios.get(`http://localhost:3001/products/slug/${slug}`)
+        const res = await axios.get(`${API_URL}/products/slug/${slug}`)
         setCurrentItem(res.data.product)
         setLoading(false)
         console.log("oggetto completo", res.data)

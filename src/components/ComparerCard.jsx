@@ -3,17 +3,20 @@ import { useContext } from "react";
 import GlobalContext from "../context/GlobalContext";
 import axios from "axios";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
+
 async function fetchDetails(product) {
 
     try {
 
         if (!product.ram) { // faccio la fetch solo se mancano i dettagli
-            const res = await axios.get(`http://localhost:3001/products/slug/${product.slug}`)
+            const res = await axios.get(`${API_URL}/products/slug/${product.slug}`)
 
             return res.data.product // restituisco l'oggetto completo
         }
 
-        return product // altrimenti se è già completo, lo restituisco così comè dal provider
+        return product // altrimenti se è già completo, lo restituisco così com'è dal provider
     }
 
     catch (error) {
@@ -63,7 +66,7 @@ function ComparerCard() {
 
         <div style={{ display: "flex", gap: "2rem" }}>
 
-            <div style={{ flex: 1 }}>
+            <div style={{ flex: 1, marginLeft: "4rem" }}>
                 <h1>{first.title}</h1>
                 <p>Price: {first.price}</p>
                 <p>Category: {first.category}</p>
@@ -73,7 +76,6 @@ function ComparerCard() {
                 <p>CPU: {first.cpu}</p>
                 <p>GPU: {first.gpu}</p>
                 <p>Cooling: {first.cooling || "Not present"}</p>
-                <p>Price: {first.price}</p>
                 <h2>Description</h2>
                 <p>{first.description}</p>
 
@@ -98,7 +100,6 @@ function ComparerCard() {
                 <p>CPU: {second.cpu}</p>
                 <p>GPU: {second.gpu}</p>
                 <p>Cooling: {second.cooling || "Not present"}</p>
-                <p>Price: {second.price}</p>
                 <h2>Description</h2>
                 <p>{second.description}</p>
 

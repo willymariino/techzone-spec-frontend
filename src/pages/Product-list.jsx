@@ -14,6 +14,9 @@ function debounce(callback, delay) {
     }
 }
 
+const API_URL = import.meta.env.VITE_API_URL;
+
+
 async function fetchProducts(query, category, setProducts) {
     // verifico i parametri ricevuti dalla chiamata per debug
     console.log("query:", query) // dovrebbe essere la stringa che inserisci come filtro
@@ -21,7 +24,7 @@ async function fetchProducts(query, category, setProducts) {
     //   console.log("setProducts:", setProducts) // dovrebbe essere la funzione setter di useState
 
     try {
-        const res = await axios.get(`http://localhost:3001/products?search=${query}&category=${category}`)
+        const res = await axios.get(`${API_URL}/products?search=${query}&category=${category}`)
 
         setProducts(res.data)
         console.log(res.data)
@@ -51,7 +54,7 @@ function ProductList() {
     }, []);
 
     const debouncedFetchProducts = useCallback(
-        debounce((queryValue, categoryValue) => fetchProducts(queryValue, categoryValue, setProducts), 1000), // queryValue e categoryValue sono i paramatri dinamici che mi permettono di aggiornare gli stati query e category
+        debounce((queryValue, categoryValue) => fetchProducts(queryValue, categoryValue, setProducts), 800), // queryValue e categoryValue sono i paramatri dinamici che mi permettono di aggiornare gli stati query e category
         [setCategory, setQuery]
     )
 

@@ -337,7 +337,7 @@ header a {
 
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 568px) {
     .product-list {
         grid-template-columns: 1fr;
         justify-items: center
