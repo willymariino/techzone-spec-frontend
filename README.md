@@ -6,8 +6,8 @@ TechZone is my final frontend-specialization project: a tech products comparator
 
 The project is structured using a modular component-based architecture, with a clear separation between UI components, page-level views and an API abstraction layer. Global state management is handled through React Context to ensure scalability and avoid prop drilling.
 
-> ## Backend note
-The backend API is deployed to Render. Render services enter sleep mode after ~15 minutes of inactivity; when the API is cold, expect a ~20–30 second delay for the first request while the service wakes up.
+>  **Backend note**
+> The backend API is deployed to Render. Render services enter sleep mode after ~15 minutes of inactivity; when the API is cold, expect a ~20–30 second delay for the first request while the service wakes up.
 
 Backend repo: https://github.com/willymariino/progetto-finale-spec-frontend-back
 
