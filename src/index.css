@@ -348,6 +348,13 @@
          box-sizing: border-box;
      }
 
+     .search-inputs {
+         flex-direction: column;
+         gap: 12px;
+         max-width: 100%;
+         box-sizing: border-box;
+     }
+
      .title-section,
      .search-inputs input,
      .search-inputs select {
