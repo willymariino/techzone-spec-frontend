@@ -1,8 +1,8 @@
  /* * {
     outline: 1px solid rgba(35, 16, 246, 0.1);
     /* debug visivo 
-}
-*/
+ }
+ */
 
  html,
  body {
@@ -19,15 +19,19 @@
 
  }
 
- /* main {
+ main {
      padding: 0 32px;
 
- } */
+ }
 
 
 
  .title-section {
      margin-bottom: 20px;
+ }
+
+ .comparer-title {
+     margin-left: 1rem;
  }
 
  .search-inputs {
@@ -393,6 +397,13 @@
          margin: 8px auto;
          display: block;
      }
+
+     .image-container {
+         margin: 0 auto;
+
+     }
+
+
 
      .product-list {
          grid-template-columns: 1fr;

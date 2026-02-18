@@ -10,6 +10,9 @@ function WishList() {
     const [storedFavorites, setStoredFavorites] = useStorage("wishListItems", [])
     console.log("Favorites attuali:", favorites)
 
+
+
+
     // È necessario usare useEffect per sincronizzare storedFavorites con favorites,
     // perché chiamare direttamente setStoredFavorites(favorites) durante il render
     // causerebbe un ciclo infinito di rendering (React non permette di aggiornare lo stato
@@ -18,6 +21,10 @@ function WishList() {
     useEffect(() => {
         setStoredFavorites(favorites)
     }, [favorites, setStoredFavorites])
+
+    if (storedFavorites.length < 1) {
+        return <h1 className="comparer-title">la Wishlist non contiene articoli </h1>
+    }
 
     return (
         <>

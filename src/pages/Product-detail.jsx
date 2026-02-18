@@ -56,9 +56,13 @@ function ProductDetail() {
 
         <main>
 
-            <h1>{currentItem.title}</h1>
+            <section className="titles">
 
-            <p>Category: {currentItem.category}</p>
+                <h1>{currentItem.title}</h1>
+                <p>Category: {currentItem.category}</p>
+
+            </section>
+
 
             <div className="detail-card">
 
@@ -67,7 +71,7 @@ function ProductDetail() {
                 </div>
 
 
-                <section>
+                <section className="specifications-container">
 
                     <h2>Specifications:</h2>
 
