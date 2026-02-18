@@ -1,122 +1,81 @@
-# Tech Product Comparator & Ecommerce — Final Individual Project
+# TechZone – Frontend
+[![Live Demo](https://img.shields.io/badge/live-demo-brightgreen)](https://techzone-web.netlify.app)
 
 ## Project Overview
-This is an individual final project: a frontend application that combines a tech product comparator with ecommerce features. Users can search and filter tech products, compare multiple products side-by-side, add items to a shopping cart, and complete a checkout (stubbed or integrated with a backend). The UI is built with modern React patterns and includes debounced search, category filtering, comparison view, and cart management.
+TechZone is my final frontend-specialization project: a tech products comparator with integrated e‑commerce features. The SPA (React) lets users search and filter tech products, compare multiple items side‑by‑side, add products to a shopping cart, and complete a simple checkout flow. The application demonstrates debounced search, category filters, comparison UI, cart persistence, and dynamic data fetching via REST APIs.
+
+The project is structured using a modular component-based architecture, with a clear separation between UI components, page-level views and an API abstraction layer. Global state management is handled through React Context to ensure scalability and avoid prop drilling.
+
+> ## Backend note
+The backend API is deployed to Render. Render services enter sleep mode after ~15 minutes of inactivity; when the API is cold, expect a ~20–30 second delay for the first request while the service wakes up.
+
+Backend repo: https://github.com/willymariino/progetto-finale-spec-frontend-back
 
 ## Features
-- Responsive product listing with search and category filters
-- Debounced search input to reduce API calls
-- Compare multiple products side-by-side (specs, price, images)
-- Add/remove products to/from a persistent cart
-- Cart summary and simple checkout flow (mock or integrated)
-- Product details page with full specifications and related items
-- Error handling and loading states
-- Clean component structure and reusable UI elements
+- Product catalog with search, category filters and pagination
+- Persistent wishlist with localStorage synchronization
+- Side‑by‑side product comparison (specs, price, images)
+- Debounced search to reduce API requests
+- Product detail pages with full specifications and images
+- Shopping cart: add/remove items, update quantities.
+- Responsive design for desktop and mobile
+- Loading and error states for API interactions
 
-## Tech stack
-- Frontend: React (functional components + hooks)
-- Styling: CSS / CSS modules / styled-components (adjust to your choice)
-- HTTP: fetch or axios
-- State: React useState / useReducer / Context API (small app) — debounce implemented for search input
-- Build: Vite or Create React App (adjust to your setup)
-- Optional: React Router for client-side routing
+## Tech Stack
+- **React** 19.0.0
+- **Vite** 6.2.0
+- **Axios** for HTTP requests
+- **React** Context API for global state management (cart, compare selections)
+- **Node.js / Express** (REST API backend)
+- **CSS3** for styling
+- **Netlify** — frontend deployment
+- **Render** — backend deployment
 
-## Project structure (example)
-- src/
-  - components/ (ProductCard, ProductList, ComparisonTable, SearchBar, Cart, Checkout)
-  - pages/ (Home, ProductDetails, Comparison, Cart, Checkout)
-  - hooks/ (useDebounce, useCart)
-  - services/ (api client)
-  - context/ (CartContext)
-  - styles/
-  - assets/
+## Live Demo
+[TechZone web](https://techzone-web.netlify.app)
 
-## Key components & responsibilities
-- SearchBar
-  - Debounced input to update the query state (e.g., via useDebounce hook)
-  - Emits the current query and category selection
-- ProductList
-  - Fetches and displays paginated products
-  - Applies search and category filters
-- ProductCard
-  - Displays thumbnail, short specs, price, and actions (compare, add to cart)
-- ComparisonTable
-  - Shows selected products side-by-side for spec comparison
-- Cart & Checkout
-  - Cart manages selected items, quantities, and subtotal
-  - Checkout implements order submission flow (mock or real)
+## How to Run Locally
 
-## State & data flow
-- Local UI state: useState for UI interactions (selected items, modal visibility)
-- Shared state: Context or a light global store for cart and comparison selections
-- Search behavior:
-  - query: React state that represents the current search filter
-  - category: React state that represents selected category
-  - Debounce pattern: a debounced value (queryValue / categoryValue) is passed to API calls to avoid firing requests on every keystroke
+1. Clone both repositories:
+   - Frontend: this repository
+   - Backend: https://github.com/willymariino/progetto-finale-spec-frontend-back
 
-## Example API contract (frontend expectations)
-- GET /api/products?query={q}&category={cat}&page={n}
-  - Response: { items: Product[], total: number, page: number, perPage: number }
-  - Product: { id, name, brand, price, images: string[], specs: { key: value }, category }
-- GET /api/products/{id}
-  - Response: Product
-- POST /api/cart
-  - Body: { productId, quantity }
-  - Response: { cart }
-- GET /api/cart
-  - Response: { cart }
-- POST /api/checkout
-  - Body: { cart, customerInfo }
-  - Response: { orderId, status }
+2. Install dependencies in both folders:
+   npm install
 
-Adjust endpoints and payloads to match your backend.
+3. Configure environment variables: (frontend only)
 
-## Environment variables
-Example .env (adapt names to your tooling):
-- VITE_API_BASE_URL=https://api.example.com
-- REACT_APP_API_BASE_URL=https://api.example.com
+   Frontend:
+   - Copy `.env.example` to `.env`
+   - Set:
+     VITE_API_URL=http://localhost:3001
 
-## Installation & local development
-1. Clone repository
-2. Install dependencies
-   - npm install
-   - or yarn install
-3. Create .env file with API base URL
-4. Start dev server
-   - npm run dev
-   - or npm start
+4. Start the backend:
+   npm run dev
 
-## Scripts (example)
-- npm run dev — start development server
-- npm run build — create production build
-- npm run preview — preview production build locally
-- npm test — run tests (if present)
-- npm run lint — lint code
+5. Start the frontend:
+   npm run dev
 
-## Testing & quality
-- Write unit tests for core logic (search debounce, cart reducer)
-- Component tests for key UI flows (add to cart, compare, checkout step)
-- Use linting and a formatter (ESLint + Prettier)
+6. Open the app in your browser:
+   http://localhost:5173
 
-## Deployment
-- Build static assets: npm run build
-- Host the build on static hosting (Netlify, Vercel, GitHub Pages) or deploy via your chosen infrastructure
-- Ensure environment variables point to production API endpoints
+## Folder Structure
+```
+techzone-frontend/
+├── public/
+│   └── ...
+├── src/
+│   ├── assets/
+│   ├── components/
+│   ├── context/       
+│   ├── hooks/           
+│   ├── layouts/
+│   ├── pages/           
+│   ├── App.jsx
+│   ├── main.jsx
+│   └── index.css
+├── index.html
+├── package.json
+├── vite.config.js
+```
 
-## UX notes & best practices
-- Use debounced search to avoid overloading API; show a loading spinner for search results
-- Persist cart state to localStorage for session continuity
-- Provide clear comparison controls (select/unselect products) and a visible comparison badge
-- Make add-to-cart feedback prominent (toast or mini cart preview)
-
-## Contribution
-- Keep components small and focused
-- Prefer hooks for reusable logic (useDebounce, useCart)
-- Document component props and expected data shapes
-
-## License & acknowledgments
-- Add your chosen license (MIT, Apache-2.0, etc.)
-- Acknowledge libraries and resources used (icons, design systems)
-
-## Contact
-For questions about this frontend, refer to the project owner or repo issues. Adjust API details and scripts to match your precise backend and tooling.

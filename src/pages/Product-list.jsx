@@ -31,7 +31,7 @@ async function fetchProducts(query, category, setProducts) {
     }
 
     catch (error) {
-        { console.error("errore nel caricamento dei dettagli dei prodotti", error) }
+        console.error("errore nel caricamento dei dettagli dei prodotti", error)
     }
 
     finally {
