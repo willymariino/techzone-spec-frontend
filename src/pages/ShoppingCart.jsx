@@ -8,7 +8,7 @@ function ShoppingCart() {
     return (
         <>
 
-            <h1>Il tuo carrello acquisti</h1>
+            <h1 className="comparer-title">Il tuo carrello acquisti</h1>
             <button onClick={() => setCartProducts([])} className="increase-quantity-btn">
                 svuota carrello
             </button>
