@@ -345,11 +345,11 @@ header a {
 
     .title-section,
     .search-inputs input,
-    .select-category select {
+    .search-inputs select {
         width: 100%;
         max-width: 100%;
         box-sizing: border-box;
-        justify-items: center
+        justify-items: center;
     }
 
     .product-list {
