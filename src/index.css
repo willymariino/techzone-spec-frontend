@@ -304,6 +304,35 @@
 
  @media screen and (max-width: 768px) {
 
+     .title-section {
+         text-align: center;
+     }
+
+     .search-inputs {
+         display: flex;
+         align-items: center;
+         gap: 12px;
+         width: 100%;
+         padding: 0 20px;
+         box-sizing: border-box;
+     }
+
+     .search-inputs input,
+     .search-inputs select,
+     .search-inputs label {
+         width: 100%;
+         box-sizing: border-box;
+         margin: 8px 0;
+         padding: 10px;
+         border-radius: 10px;
+         margin: 8px auto;
+         display: block;
+     }
+
+     .product-list {
+         margin-right: 4%;
+     }
+
      .footer {
          margin: 0;
          padding: 0;
