@@ -23,6 +23,22 @@ function Header() {
             </nav>
 
 
+            <nav className="navbar hamburger-button">
+
+                <input type="checkbox" id="menu-toggle" className="menu-toggle" />
+                <label htmlFor="menu-toggle" className="hamburger">&#9776;</label>
+
+                <ul className="nav-links">
+
+                    <li> <NavLink to="/WishList" className="nav-link"> <CiBookmark />  Wish List </NavLink></li>
+                    <li> <NavLink to="/ShoppingCart" className="nav-link"> <FaCartShopping /> Shopping Cart </NavLink></li>
+                    <li> <NavLink to="/ComparePage" className="nav-link"><MdOutlineCompare /> Comparatore</NavLink></li>
+
+                </ul>
+
+            </nav>
+
+
         </header>
     )
 }
