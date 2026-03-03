@@ -381,8 +381,6 @@
 
  @media screen and (max-width: 650px) {
 
-
-
      .hamburger-button {
          display: block;
      }
@@ -392,7 +390,9 @@
          font-size: 2rem;
          cursor: pointer;
          user-select: none;
-         padding: 0.5rem
+         padding: 0.5rem;
+         margin-right: 10px;
+
      }
 
 
@@ -428,7 +428,7 @@
 
      .navbar .menu-toggle:checked+.hamburger {
          transform: rotate(90deg);
-         transition: transform 0.3s ease;
+         transition: transform 0.6s ease-in-out;
      }
 
      .title-section {
