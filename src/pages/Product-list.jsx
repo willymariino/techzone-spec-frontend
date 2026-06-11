@@ -14,16 +14,16 @@ function debounce(callback, delay) {
     }
 }
 
-const API_URL = import.meta.env.VITE_API_URL;
+const API_URL = import.meta.env.VITE_API_URL
 
-
-async function fetchProducts(query, category, setProducts) {
+async function fetchProducts(query, category, setProducts, setIsLoadign) {
     // verifico i parametri ricevuti dalla chiamata per debug
     console.log("query:", query) // dovrebbe essere la stringa che inserisci come filtro
     console.log("category:", category) // dovrebbe essere la stringa della categoria scelta
     //   console.log("setProducts:", setProducts) // dovrebbe essere la funzione setter di useState
 
     try {
+        setIsLoadign(true)
         const res = await axios.get(`${API_URL}/products?search=${query}&category=${category}`)
 
         setProducts(res.data)
@@ -36,7 +36,9 @@ async function fetchProducts(query, category, setProducts) {
 
     finally {
         // Messaggio di completamento operazione (sia successo che errore)
+        setIsLoadign(false)
         console.log("operazione completata")
+
     }
 
 }
@@ -45,7 +47,8 @@ function ProductList() {
     const [query, setQuery] = useState("")
     const [category, setCategory] = useState("")
     const [products, setProducts] = useState([])
-    const [sortOrder, setSortOrder] = useState("");
+    const [sortOrder, setSortOrder] = useState("")
+    const [isLoading, setIsLoadign] = useState(false)
     const { setCompareList } = useContext(GlobalContext)
 
     // funzione che svuota compareList al mount di Product-List per permettere nuove comparazioni
@@ -54,8 +57,8 @@ function ProductList() {
     }, []);
 
     const debouncedFetchProducts = useCallback(
-        debounce((queryValue, categoryValue) => fetchProducts(queryValue, categoryValue, setProducts), 800), // queryValue e categoryValue sono i paramatri dinamici che mi permettono di aggiornare gli stati query e category
-        [setCategory, setQuery]
+        debounce((queryValue, categoryValue) => fetchProducts(queryValue, categoryValue, setProducts, setIsLoadign), 800), // queryValue e categoryValue sono i paramatri dinamici che mi permettono di aggiornare gli stati query e category
+        []
     )
 
 
@@ -136,19 +139,22 @@ function ProductList() {
 
             {/* <pre>{JSON.stringify(products, null, 2)}</pre> */}
 
-            <ul className="product-list">
+            {isLoading ? (<p>caricamento in corso, il backend su render può impiegare 30~40 secondi a svegliarsi al primo avvio</p>) : (
 
-                {sortedProducts.map(product => (
-                    <li key={product.id} className="product-card">
-                        <Link to={`/product-detail/slug/${product.slug}`}>
-                            <ProductCard product={product} />
-                        </Link>
-                    </li>
-                ))}
+                <ul className="product-list">
 
-            </ul>
+                    {sortedProducts.map(product => (
+                        <li key={product.id} className="product-card">
+                            <Link to={`/product-detail/slug/${product.slug}`}>
+                                <ProductCard product={product} />
+                            </Link>
+                        </li>
+                    ))}
 
-        </main>
+                </ul>)
+            }
+
+        </main >
     )
 }
 
